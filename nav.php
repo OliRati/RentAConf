@@ -9,10 +9,13 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Acceuil</a>
+                        <a class="nav-link active" href="index.php">Acceuil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Programme</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ajout-conf.php" class="nav-link">Ajouter</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">faq</a>

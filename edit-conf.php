@@ -2,6 +2,23 @@
 include "./functions.php";
 require './connexion-bd.php';
 
+$idVoir = $_GET['id'] ?? null;
+
+if (!is_numeric($idVoir)) {
+    dd("Cette conférence n'existe pas !!!");
+}
+
+$pdo = new PDO($dsn, $user, $pass, $options);
+$stm = $pdo->prepare("SELECT * FROM participants WHERE id = :id");
+$stm->bindParam(':id', $idVoir, PDO::PARAM_INT);
+
+if (!$stm->execute()) {
+    echo "Pas de données pour cette requête.";
+    exit;
+}
+
+$indiv = $stm->fetch();
+
 function validatePassword($password)
 {
     $errors = "";
@@ -82,18 +99,18 @@ function isValidPhone($phone)
     return preg_match($pattern, $phone);
 }
 
-$nom = "";
-$prenom = "";
-$email = "";
+$nom = $indiv['nom'];
+$prenom = $indiv['prenom'];
+$email = $indiv['email'];
 $password = "";
 $password_confirm = "";
-$date_naissance = "";
-$telephone = "";
-$pays = "";
-$type_participant = "";
-$centres_interet = [];
+$date_naissance = $indiv['date_naissance'];
+$telephone = $indiv['telephone'];
+$pays = $indiv['pays'];
+$type_participant = $indiv['type_participant'];
+$centres_interet = explode(',', $indiv['centres_interet']);
 
-$conditions_valide = false;
+$conditions_valide = $indiv['conditions_valide'];
 
 $liste_pays = [
     'Andorre',
