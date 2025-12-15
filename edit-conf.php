@@ -129,6 +129,8 @@ $liste_pays = [
     'Suisse'
 ];
 
+$liste_interets = ['PHP', 'Javascript', 'DevOps', 'IA'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['nom'])) {
@@ -609,38 +611,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <fieldset>
                             <legend class="mt-4">Centres d'interêt</legend>
+                            <?php
+                            foreach($liste_interets as $interet) {
+                            ?>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="centres_interet[]" value="PHP"
-                                    id="optionsCheckboxPhp" <?php if (in_array('PHP', $centres_interet))
+                                <input class="form-check-input" type="checkbox" name="centres_interet[]" value="<?= $interet ?>"
+                                    id="optionsCheckbox<?= $interet ?>" <?php if (in_array($interet, $centres_interet))
                                         echo "checked"; ?>>
-                                <label class="form-check-label" for="optionsCheckboxPhp">
-                                    PHP
+                                <label class="form-check-label" for="optionsCheckbox<?= $interet ?>">
+                                    <?= $interet ?>
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="centres_interet[]"
-                                    value="Javascript" id="optionsCheckboxJavascrit" <?php if (in_array("Javascript", $centres_interet))
-                                        echo "checked"; ?>>
-                                <label class="form-check-label" for="optionsCheckboxJavascrit">
-                                    Javascript
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="centres_interet[]" value="DevOps"
-                                    id="optionsCheckboxDevops" <?php if (in_array("devops", $centres_interet))
-                                        echo "checked"; ?>>
-                                <label class="form-check-label" for="optionsCheckboxDevops">
-                                    DevOps
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="centres_interet[]" value="IA"
-                                    id="optionsCheckboxIa" <?php if (in_array("IA", $centres_interet))
-                                        echo "checked"; ?>>
-                                <label class="form-check-label" for="optionsCheckboxIa">
-                                    IA
-                                </label>
-                            </div>
+                            <?php
+                            }
+                            ?>
                         </fieldset>
 
                         <?php if (isset($error['centres_interet'])) { ?>
