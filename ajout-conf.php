@@ -366,7 +366,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container">
             <h1>Inscription à la conférence</h1>
 
-            <?php include "formulaire.php"; ?>
+            <?php
+            const FORM_TYPE = "add";
+            require "formulaire.php"; ?>
         </div>
     </main>
     <?php include "./footer.php" ?>

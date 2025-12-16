@@ -133,6 +133,12 @@ $liste_interets = ['PHP', 'Javascript', 'DevOps', 'IA'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    if (isset($_POST['annuler'])) {
+        header("Location: index.php");
+        exit;
+    }
+
+
     if (isset($_POST['nom'])) {
         $tmp_nom = trim(strip_tags($_POST['nom']));
 
@@ -382,9 +388,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <main>
         <div class="container">
-            <h1>Inscription à la conférence</h1>
+            <h1>Modification d'une conférence</h1>
 
-            <?php include "formulaire.php"; ?>
+            <?php
+            const FORM_TYPE = "edit";
+            require "formulaire.php"; ?>
         </div>
     </main>
     <?php include "./footer.php" ?>

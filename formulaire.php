@@ -1,5 +1,6 @@
 <?php
 // Formulaire Ajouter / Modifier
+// const FORM_TYPE should be 'edit' or 'add'
 ?>
 <form action="" method="post">
 
@@ -70,49 +71,52 @@
 
         <div class="col-6 pe-3">
 
-            <!-- Input Password -->
+            <?php if (FORM_TYPE != 'edit') { ?>
+                <!-- Input Password -->
 
-            <div class="<?php if (empty($password))
-                echo "has-danger";
-            else
-                echo "has-success"; ?>">
-                <label class="form-label mt-4" for="inputPassword">Password</label>
-                <input type="password" class="form-control <?php if (empty($password))
-                    echo "is-invalid";
+                <div class="<?php if (empty($password))
+                    echo "has-danger";
                 else
-                    echo "is-valid"; ?>" id="inputPassword" name="password">
-                <?php /* value="<?= $password ?>" */
-                if (isset($error['password'])) { ?>
-                    <div class="<?php if (empty($password))
-                        echo "invalid-feedback";
+                    echo "has-success"; ?>">
+                    <label class="form-label mt-4" for="inputPassword">Password</label>
+                    <input type="password" class="form-control <?php if (empty($password))
+                        echo "is-invalid";
                     else
-                        echo "valid-feedback"; ?>">
-                        <?= $error['password'] ?>
-                    </div>
-                <?php } ?>
-            </div>
+                        echo "is-valid"; ?>" id="inputPassword" name="password">
+                    <?php /* value="<?= $password ?>" */
+                    if (isset($error['password'])) { ?>
+                        <div class="<?php if (empty($password))
+                            echo "invalid-feedback";
+                        else
+                            echo "valid-feedback"; ?>">
+                            <?= $error['password'] ?>
+                        </div>
+                    <?php } ?>
+                </div>
 
-            <!-- Input Password confirm -->
+                <!-- Input Password confirm -->
 
-            <div class="<?php if (empty($password_confirm))
-                echo "has-danger";
-            else
-                echo "has-success"; ?>">
-                <label class="form-label mt-4" for="inputPasswordConfirm">Confirm password</label>
-                <input type="password" class="form-control <?php if (empty($password_confirm))
-                    echo "is-invalid";
+                <div class="<?php if (empty($password_confirm))
+                    echo "has-danger";
                 else
-                    echo "is-valid"; ?>" id="inputPasswordConfirm" name="password_confirm">
-                <?php /* value="<?= $password_confirm ?>" */
-                if (isset($error['password_confirm'])) { ?>
-                    <div class="<?php if (empty($password_confirm))
-                        echo "invalid-feedback";
+                    echo "has-success"; ?>">
+                    <label class="form-label mt-4" for="inputPasswordConfirm">Confirm password</label>
+                    <input type="password" class="form-control <?php if (empty($password_confirm))
+                        echo "is-invalid";
                     else
-                        echo "valid-feedback"; ?>">
-                        <?= $error['password_confirm'] ?>
-                    </div>
-                <?php } ?>
-            </div>
+                        echo "is-valid"; ?>" id="inputPasswordConfirm" name="password_confirm">
+                    <?php /* value="<?= $password_confirm ?>" */
+                    if (isset($error['password_confirm'])) { ?>
+                        <div class="<?php if (empty($password_confirm))
+                            echo "invalid-feedback";
+                        else
+                            echo "valid-feedback"; ?>">
+                            <?= $error['password_confirm'] ?>
+                        </div>
+                    <?php } ?>
+                </div>
+
+            <?php } ?>
 
             <!-- Input Date Naissance -->
 
@@ -252,27 +256,37 @@
                 </div>
             <?php } ?>
 
-            <fieldset>
-                <legend class="mt-4">Accepter les conditions d'utilisation</legend>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="conditions_valide" id="optionsRadios1"
-                        value="conditions_valide" <?php if ($conditions_valide)
-                            echo "checked"; ?>>
-                    <label class="form-check-label" for="optionsRadios1">
-                        J'accepte
-                    </label>
-                </div>
-                <?php if (isset($error['conditions_valide'])) { ?>
-                    <div class="<?php if (!$conditions_valide)
-                        echo "invalid-feedback";
-                    else
-                        echo "valid-feedback"; ?> d-block">
-                        <?= $error['conditions_valide'] ?>
+            <?php if (FORM_TYPE != "edit") { ?>
+                <fieldset>
+                    <legend class="mt-4">Accepter les conditions d'utilisation</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="conditions_valide" id="optionsRadios1"
+                            value="conditions_valide" <?php if ($conditions_valide)
+                                echo "checked"; ?>>
+                        <label class="form-check-label" for="optionsRadios1">
+                            J'accepte
+                        </label>
                     </div>
-                <?php } ?>
-            </fieldset>
+                    <?php if (isset($error['conditions_valide'])) { ?>
+                        <div class="<?php if (!$conditions_valide)
+                            echo "invalid-feedback";
+                        else
+                            echo "valid-feedback"; ?> d-block">
+                            <?= $error['conditions_valide'] ?>
+                        </div>
+                    <?php } ?>
+                </fieldset>
+            <?php } ?>
 
-            <button type="submit" class="btn btn-primary mt-3 px-5" name="envoyer">Envoyer</button>
+            <button type="submit" class="btn btn-primary mt-3 px-5" name="envoyer">
+                <?php if (FORM_TYPE === 'edit')
+                    echo 'Modifier';
+                else
+                    echo 'Envoyer'; ?></button>
+
+            <?php if (FORM_TYPE === 'edit') { ?>
+                <button type="submit" class="btn btn-primary mt-3 px-5" name="annuler">Annuler</button>
+            <?php } ?>
 
             <?php if (isset($error['sql'])) { ?>
                 <div class="<?php if (isset($error['sql']))
